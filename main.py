@@ -47,6 +47,8 @@ def main():
         askSendMissile(iaGrid)
 
         print("Tour de l'ordinateur...")
+        row = random.randint(0, len(userGrid) - 1)
+        col = random.randint(0, len(userGrid[0]) - 1)
 
         sendMissileAt(userGrid, (row, col))
 
