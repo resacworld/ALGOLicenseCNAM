@@ -141,20 +141,33 @@ def sendMissileAt(row, col):
         return False
     
 def cellNameToIndex(cellName):
-    global rowlabel
+    if len(cellName) < 2:
+        raise ValueError("Position de cellule invalide")
 
     colLetter = cellName[0].upper()
-    rowNumber = int(cellName[1:]) - 1
+    rowIndex = int(cellName[1:]) - 1
 
     colIndex = ord(colLetter) - ord('A')
 
-    return rowNumber, colIndex
+    if rowIndex < 0 or rowIndex >= globalNbRow:
+        raise ValueError("Index de ligne hors de la grille")
+    if colIndex < 0 or colIndex >= globalNbCol:
+        raise ValueError("Index de colonne hors de la grille")
+
+    return (rowIndex, colIndex)
 
 
 def askSendMissile():
     global globalNbCol, globalNbRow
-    
-    row, col = cellNameToIndex(input("Entrez la position du missile (ex: A5): "))
+
+    row = None
+    col = None
+
+    while row == None and col == None:
+        try :
+            (row, col) = cellNameToIndex(input("Entrez la position du missile (ex: A5): "))
+        except ValueError as e:
+            print("Erreur : " + e)
 
     result = sendMissileAt(row, col)
 
