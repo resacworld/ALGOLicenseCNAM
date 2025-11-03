@@ -1,6 +1,6 @@
 # -*- coding: utf-8 *-`
 import random
-from grid import createGrid, printGrid
+from grid import printGrid, askUserCreateGrid
 from game import askSendMissile, isGameOver
 
 """
@@ -35,7 +35,7 @@ Si on fait ord(lettre) - ord('A') on obtient l'index de la lettre dans l'alphabe
 
 '''
 
-grid = createGrid(10, 10)
+grid = askUserCreateGrid()
 
 def main():
     printGrid(grid)

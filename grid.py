@@ -12,6 +12,36 @@ def globalNbCol(grid):
         return len(grid[0]) 
     return None
 
+def askUserCreateGrid():
+    nbRow = None
+    nbColumn = None
+
+    while nbRow == None or nbColumn == None:
+        try:
+            
+            if nbRow == None:
+                nbRow = int(input("Entrez le nombre de lignes de la grille: "))
+
+                if nbRow < 7:
+                    print("Valeur trop petite !!")
+                    nbRow = None
+
+            if nbColumn == None:
+                nbColumn = int(input("Entrez le nombre de colonnes de la grille: "))
+
+                if nbColumn < 7:
+                    print("Valeur trop petite !!")
+                    nbColumn = None
+
+                elif nbColumn > len(rowlabel):
+                    print("Nombre trop grand !!")
+                    nbColumn = None
+
+        except ValueError:
+            print("Erreur : Veuillez entrer un nombre entier valide.")
+
+    return createGrid(nbRow, nbColumn)
+
 def createGrid(nbRow, nbColumn):
     boatsToPlace = [5, 4, 3, 3, 2]
 
@@ -31,7 +61,6 @@ def createGrid(nbRow, nbColumn):
 
                 for i in range(-1, boatLength + 1):
                     for j in range(-1, 2):
-                        print(i, j)
                         if ((row + j) < 0) or ((row + j) >= (nbRow)) or ((col + i) < 0) or ((col + i) >= (nbColumn)):
                             continue
 
@@ -65,7 +94,7 @@ def createGrid(nbRow, nbColumn):
 
     return grid
 
-def printGrid(grid):
+def printGrid(grid, showBoats=False):
     global rowlabel
 
     toplabel = "  "
@@ -81,7 +110,7 @@ def printGrid(grid):
             if cell == '':
                 text += "🌊"
             elif cell == 'b':
-                text += "⛵"
+                text += "⛵" if showBoats else "🌊"
             elif cell == 'h':
                 text += "💥"
             elif cell == 'm':
