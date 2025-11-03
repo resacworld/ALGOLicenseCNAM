@@ -94,8 +94,11 @@ def createGrid(nbRow, nbColumn):
 
     return grid
 
-def printGrid(grid, showBoats=False):
+def printGrid(grid, showBoats=False, gridName=None):
     global rowlabel
+
+    if gridName != None:
+        print("\nGrille : " + str(gridName))
 
     toplabel = "  "
     for label in rowlabel[:len(grid[0])]:

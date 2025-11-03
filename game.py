@@ -16,7 +16,9 @@ def cellNameToIndex(grid, cellName):
 
     return (rowIndex, colIndex)
 
-def sendMissileAt(grid, row, col):
+def sendMissileAt(grid, position):
+    (row, col) = position
+
     if (row < 0) or (col < 0) or (row > globalNbRow(grid)) or (col > globalNbCol(grid)):
         return "Hors de la grille"
     
@@ -33,16 +35,15 @@ def sendMissileAt(grid, row, col):
         return False
     
 def askSendMissile(grid):
-    row = None
-    col = None
+    position = None
 
-    while row == None and col == None:
+    while position == None:
         try :
-            (row, col) = cellNameToIndex(grid, input("Entrez la position du missile (ex: A5): "))
+            position = cellNameToIndex(grid, input("Entrez la position du missile (ex: A5): "))
         except ValueError as e:
             print("Erreur : " + str(e))
 
-    result = sendMissileAt(grid, row, col)
+    result = sendMissileAt(grid, position)
 
     if result:
         print("Touché !")
