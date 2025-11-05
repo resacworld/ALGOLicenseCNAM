@@ -1,4 +1,5 @@
 import random
+from scores import calculScore
 
 rowlabel = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 
@@ -41,6 +42,8 @@ def askUserCreateGrid():
             print("Erreur : Veuillez entrer un nombre entier valide.")
 
     return createGrid(nbRow, nbColumn)
+
+# def placeBoat()
 
 def createGrid(nbRow, nbColumn):
     boatsToPlace = [5, 4, 3, 3, 2]
@@ -130,15 +133,3 @@ def printGrid(grid, showBoats=False, gridName=None):
         
         print(text)
         i += 1
-
-def calculScore(grid):
-    score = 0
-
-    for row in grid:
-        for cell in row:
-            if cell == "h":
-                score += 700
-            elif cell == "m":
-                score -= 100
-    
-    return score

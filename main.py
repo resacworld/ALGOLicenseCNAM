@@ -1,6 +1,7 @@
 # -*- coding: utf-8 *-`
 from grid import createGrid, printGrid, askUserCreateGrid
-from game import askSendMissile, sendMissileAt, isGameOver, saveTurnInFile, reinitFile
+from scores import calculScore, saveBestScore
+from game import askSendMissile, isGameOver, reinitFile
 from AI import SendIAMissile
 import random
 
@@ -12,9 +13,11 @@ License 3 Robotique CNAM
 userGrid = askUserCreateGrid()
 iaGrid = createGrid(len(userGrid), len(userGrid[0]))
 
+saveBestScore("Orditest", 100)
+
 def main():
     reinitFile()
-
+    
     printGrid(userGrid, True, "Utilisateur")
     printGrid(iaGrid, gridName="Ordinateur")
 
@@ -34,6 +37,26 @@ def main():
         print("L'ordinateur a gagné !")
     else :
         print("Vous avez gagné !")
+
+    scores = [
+        ['Utilisateur', calculScore(iaGrid)], 
+        ['Ordinateur', calculScore(userGrid)]
+    ]
+
+    if scores[0][1] > scores[1][1]:
+        saveBestScore(
+            scores[0][0],
+            scores[0][1],
+        )
+    else:
+        saveBestScore(
+            scores[1][0],
+            scores[1][1],
+        )
+
+
+    
+    
 
 if __name__ == "__main__":
     main()

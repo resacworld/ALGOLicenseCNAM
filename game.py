@@ -1,4 +1,5 @@
-from grid import globalNbCol, globalNbRow, calculScore
+from grid import globalNbCol, globalNbRow
+from scores import calculScore
 
 def cellNameToIndex(grid, cellName):
     if len(cellName) < 2:
