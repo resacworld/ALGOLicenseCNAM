@@ -23,7 +23,7 @@ def main():
 
         print("Tour de l'ordinateur...")
 
-        SendIAMissile(iaGrid)
+        SendIAMissile(userGrid)
 
         printGrid(userGrid, True, "Utilisateur")
         printGrid(iaGrid, gridName="Ordinateur")

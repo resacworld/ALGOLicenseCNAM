@@ -106,6 +106,8 @@ def printGrid(grid, showBoats=False, gridName=None):
 
     if gridName != None:
         print("\nGrille : " + str(gridName))
+    
+    print(f"Score : {calculScore(grid)}")
 
     toplabel = "  "
     for label in rowlabel[:len(grid[0])]:
@@ -128,3 +130,15 @@ def printGrid(grid, showBoats=False, gridName=None):
         
         print(text)
         i += 1
+
+def calculScore(grid):
+    score = 0
+
+    for row in grid:
+        for cell in row:
+            if cell == "h":
+                score += 700
+            elif cell == "m":
+                score -= 100
+    
+    return score

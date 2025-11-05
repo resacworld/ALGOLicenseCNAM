@@ -1,4 +1,4 @@
-from grid import globalNbCol, globalNbRow
+from grid import globalNbCol, globalNbRow, calculScore
 
 def cellNameToIndex(grid, cellName):
     if len(cellName) < 2:
@@ -81,6 +81,8 @@ def saveTurnInFile(grid, gridName, cellName, value):
             file.write(f"Cible en {cellName} touchée !\n")
         elif value == "m":
             file.write(f"Cible en {cellName} manquée.\n")
+        
+        file.write(f"Score : {calculScore(grid)}\n")
 
         for row in grid:
             text = ""
