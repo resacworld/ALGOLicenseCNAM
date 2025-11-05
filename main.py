@@ -1,6 +1,6 @@
 # -*- coding: utf-8 *-`
 from grid import createGrid, printGrid, askUserCreateGrid
-from game import askSendMissile, sendMissileAt, isGameOver
+from game import askSendMissile, sendMissileAt, isGameOver, saveTurnInFile, reinitFile
 from AI import SendIAMissile
 import random
 
@@ -9,12 +9,12 @@ Créer par VIDALOT victor
 License 3 Robotique CNAM
 """
 
-poslist = []
-
 userGrid = askUserCreateGrid()
 iaGrid = createGrid(len(userGrid), len(userGrid[0]))
 
 def main():
+    reinitFile()
+
     printGrid(userGrid, True, "Utilisateur")
     printGrid(iaGrid, gridName="Ordinateur")
 
@@ -23,18 +23,7 @@ def main():
 
         print("Tour de l'ordinateur...")
 
-        row = None
-        col = None
-
-        while row is None or col is None or (row, col) in poslist:
-            row = random.randint(0, len(userGrid) - 1)
-            col = random.randint(0, len(userGrid[0]) - 1)
-
-        poslist.append((row, col))
-
-        sendMissileAt(userGrid, (row, col))
-
-        #SendIAMissile(iaGrid)
+        SendIAMissile(iaGrid)
 
         printGrid(userGrid, True, "Utilisateur")
         printGrid(iaGrid, gridName="Ordinateur")

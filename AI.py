@@ -1,11 +1,28 @@
 import random
 from grid import globalNbCol, globalNbRow
-from game import sendMissileAt
+from game import sendMissileAt, saveTurnInFile
 
-poshistory = []
-localposhistory = []
+# poshistory = []
+# localposhistory = []
+
+poslist = []
 
 def SendIAMissile(grid):
+
+    row = None
+    col = None
+
+    while row is None or col is None or (row, col) in poslist:
+        row = random.randint(0, len(grid) - 1)
+        col = random.randint(0, len(grid[0]) - 1)
+
+    poslist.append((row, col))
+
+    sendMissileAt(grid, (row, col))
+    
+    saveTurnInFile(grid, "Ordinateur", chr(col + ord('A')) + str(row + 1), grid[row][col])
+
+    """
     sendpos = None
 
     if len(poshistory) > 0 and poshistory[len(poshistory)-1][2]:
@@ -39,3 +56,4 @@ def SendIAMissile(grid):
     poshistory.append(sendpos)
 
     return sendpos
+    """
