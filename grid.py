@@ -50,6 +50,8 @@ def createGrid(nbRow, nbColumn):
     for boatLength in boatsToPlace:
         placed = False
 
+        nbTour = 0
+
         while not placed:
             orientation = random.choice(['horizontal', 'vertical'])
             if orientation == 'horizontal':
@@ -91,6 +93,11 @@ def createGrid(nbRow, nbColumn):
                     for i in range(boatLength):
                         grid[row + i][col] = 'b'
                     placed = True
+
+            nbTour += 1
+
+            if nbTour > 50:
+                raise Exception("Impossible de placer tous les bateaux sur la grille (augementer la taille de la grille ou relancer).")
 
     return grid
 
