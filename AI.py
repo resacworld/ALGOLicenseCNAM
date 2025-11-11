@@ -8,7 +8,9 @@ from game import sendMissileAt, saveTurnInFile
 poslist = []
 
 def SendIAMissile(grid):
-
+    """
+    IA simple qui envoie un missile à une position aléatoire non encore touchée
+    """
     row = None
     col = None
 
@@ -23,6 +25,8 @@ def SendIAMissile(grid):
     saveTurnInFile(grid, "Ordinateur", chr(col + ord('A')) + str(row + 1), grid[row][col])
 
     """
+    # Début non finit d'une IA plus intelligente qui cible les positions autour d'un coup réussi
+    
     sendpos = None
 
     if len(poshistory) > 0 and poshistory[len(poshistory)-1][2]:

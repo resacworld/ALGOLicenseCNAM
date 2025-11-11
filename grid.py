@@ -1,5 +1,6 @@
 import random
 from scores import calculScore
+import copy
 
 rowlabel = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 
@@ -43,7 +44,62 @@ def askUserCreateGrid():
 
     return createGrid(nbRow, nbColumn)
 
-# def placeBoat()
+def placeBoat(boatSize, grid, nbColumn, nbRow):
+
+    #on copie la grille
+    copiedGrid = copy.deepcopy(grid)
+    orientation = random.randint(0, 1)
+    placed = False
+
+    nbTour = 0
+
+    while not placed:
+        if orientation == 0:
+
+            row = random.randint(0, nbRow - 1)
+            col = random.randint(0, nbColumn - boatSize)
+
+            zoneOk = True
+
+            for i in range(-1, boatSize + 1):
+                for j in range(-1, 2):
+                    if ((row + j) < 0) or ((row + j) >= (nbRow)) or ((col + i) < 0) or ((col + i) >= (nbColumn)):
+                        continue
+
+                    if copiedGrid[row + j][col + i] != '':
+                        zoneOk = False
+                        break
+
+            if zoneOk:
+                for i in range(boatSize):
+                    copiedGrid[row][col + i] = 'b'
+                placed = True
+        else:
+            row = random.randint(0, nbRow - boatSize)
+            col = random.randint(0, nbColumn - 1)
+
+            zoneOk = True
+
+            for i in range(-1, boatSize + 1):
+                for j in range(-1, 2):
+                    if ((row + i) < 0) or ((row + i) >= (nbColumn)) or ((col + j) < 0) or ((col + j) >= (nbRow)):
+                        continue
+
+                    if copiedGrid[row + i][col + j] != '':
+                        zoneOk = False
+                        break
+
+            if zoneOk:
+                for i in range(boatSize):
+                    copiedGrid[row + i][col] = 'b'
+                placed = True
+
+        nbTour += 1
+
+        if nbTour > 50:
+            raise Exception("Impossible de placer tous les bateaux sur la grille (augementer la taille de la grille ou relancer).")
+
+    return copiedGrid
 
 def createGrid(nbRow, nbColumn):
     boatsToPlace = [5, 4, 3, 3, 2]
@@ -51,56 +107,7 @@ def createGrid(nbRow, nbColumn):
     grid = [['' for _ in range(nbColumn)] for _ in range(nbRow)]
 
     for boatLength in boatsToPlace:
-        placed = False
-
-        nbTour = 0
-
-        while not placed:
-            orientation = random.choice(['horizontal', 'vertical'])
-            if orientation == 'horizontal':
-
-                row = random.randint(0, nbRow - 1)
-                col = random.randint(0, nbColumn - boatLength)
-
-                zoneOk = True
-
-                for i in range(-1, boatLength + 1):
-                    for j in range(-1, 2):
-                        if ((row + j) < 0) or ((row + j) >= (nbRow)) or ((col + i) < 0) or ((col + i) >= (nbColumn)):
-                            continue
-
-                        if grid[row + j][col + i] != '':
-                            zoneOk = False
-                            break
-
-                if zoneOk:
-                    for i in range(boatLength):
-                        grid[row][col + i] = 'b'
-                    placed = True
-            else:
-                row = random.randint(0, nbRow - boatLength)
-                col = random.randint(0, nbColumn - 1)
-
-                zoneOk = True
-
-                for i in range(-1, boatLength + 1):
-                    for j in range(-1, 2):
-                        if ((row + i) < 0) or ((row + i) >= (nbColumn)) or ((col + j) < 0) or ((col + j) >= (nbRow)):
-                            continue
-
-                        if grid[row + i][col + j] != '':
-                            zoneOk = False
-                            break
-
-                if zoneOk:
-                    for i in range(boatLength):
-                        grid[row + i][col] = 'b'
-                    placed = True
-
-            nbTour += 1
-
-            if nbTour > 50:
-                raise Exception("Impossible de placer tous les bateaux sur la grille (augementer la taille de la grille ou relancer).")
+        grid = placeBoat(boatLength, grid, nbColumn, nbRow)
 
     return grid
 
