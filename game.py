@@ -2,6 +2,9 @@ from grid import globalNbCol, globalNbRow
 from scores import calculScore
 
 def cellNameToIndex(grid, cellName):
+    """
+    Retourne les indices (ligne, colonne) d'une cellule à partir de son nom (ex: A5)
+    """
     if len(cellName) < 2:
         raise ValueError("Position de cellule invalide")
 
@@ -18,6 +21,11 @@ def cellNameToIndex(grid, cellName):
     return (rowIndex, colIndex)
 
 def sendMissileAt(grid, position):
+    """
+    Envoie un missile à la position donnée sur la grille.
+    Retourne True si touché, False si manqué, ou False et print un message d'erreur si hors de la grille.
+    """
+
     (row, col) = position
 
     if (row < 0) or (col < 0) or (row > globalNbRow(grid)) or (col > globalNbCol(grid)):
@@ -36,6 +44,10 @@ def sendMissileAt(grid, position):
         return False
     
 def askSendMissile(grid):
+    """
+    Demande a l'utilisateur d'entrer une position pour envoyer un missile sur la grille.
+    """
+
     position = None
     strPosition = ""
 
@@ -56,6 +68,10 @@ def askSendMissile(grid):
     saveTurnInFile(grid, "Utilisateur", strPosition, grid[position[0]][position[1]])
 
 def isGameOver(grid):
+    """
+    Retourne True si tous les bateaux ont été coulés (donc que la partie est finie), False sinon.
+    """
+
     for row in grid:
         for cell in row:
             if cell == 'b':
@@ -63,6 +79,10 @@ def isGameOver(grid):
     return True
 
 def reinitFile():
+    """
+    Réinitialise le fichier de jeu
+    """
+
     with open("game.txt", "w", encoding="utf-8") as file:
         file.truncate(0)
         file.write("Début de la partie\n")
@@ -70,7 +90,7 @@ def reinitFile():
 
 def saveTurnInFile(grid, gridName, cellName, value):
     """
-    Sauvegarde les gilles de jeux
+    Sauvegarde les gilles de jeux et les mouvments dans le fichier game.txt
     """
 
     (row, col) = cellNameToIndex(grid, cellName)

@@ -5,16 +5,28 @@ import copy
 rowlabel = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 
 def globalNbRow(grid):
+    """
+    Retourne le nombre de lignes de la grille.
+    """
+
     if grid != None:
         return len(grid)
     return None
 
 def globalNbCol(grid):
+    """
+    Retourne le nombre de colonnes de la grille.
+    """
+
     if grid != None:
         return len(grid[0]) 
     return None
 
 def askUserCreateGrid():
+    """
+    Crée une grille en demandant à l'utilisateur le nombre de lignes et de colonnes.
+    """
+
     nbRow = None
     nbColumn = None
 
@@ -45,7 +57,9 @@ def askUserCreateGrid():
     return createGrid(nbRow, nbColumn)
 
 def placeBoat(boatSize, grid, nbColumn, nbRow):
-
+    """
+    Place un bateau de taille boatSize sur la grille grid passée en paramètre.
+    """
     #on copie la grille
     copiedGrid = copy.deepcopy(grid)
     orientation = random.randint(0, 1)
@@ -102,6 +116,9 @@ def placeBoat(boatSize, grid, nbColumn, nbRow):
     return copiedGrid
 
 def createGrid(nbRow, nbColumn):
+    """
+    Crée une grille de taille nbRow x nbColumn avec des bateaux placés aléatoirement.a
+    """
     boatsToPlace = [5, 4, 3, 3, 2]
 
     grid = [['' for _ in range(nbColumn)] for _ in range(nbRow)]
@@ -112,6 +129,9 @@ def createGrid(nbRow, nbColumn):
     return grid
 
 def printGrid(grid, showBoats=False, gridName=None):
+    """
+    Affiche la grille de jeu passé en paramètre.
+    """
     global rowlabel
 
     if gridName != None:
