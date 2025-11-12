@@ -15,13 +15,16 @@ def calculScore(grid):
 
 def saveBestScore(pseudo, score, fichier="scores.json"):
     # lit le fichier scores.json, y ajoute le nouveau score a la suite des autres osus forme [['pseudo', score1], ['pseudo2', score2], ...], puis réecrit le fichier ave la nouvelle liste
+    print(os.path.exists(fichier))
     if os.path.exists(fichier):
         with open(fichier, "r") as f:
             scores = json.load(f)
     else:
         scores = []
     
-    scores.insert(0, {pseudo, score})
+    scores.insert(0, {"pseudo": pseudo, "score": score})
+
+    print(scores)
 
     with open(fichier, "w+") as f:
         json.dump(scores, f)
