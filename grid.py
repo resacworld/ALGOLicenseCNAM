@@ -128,7 +128,7 @@ def createGrid(nbRow, nbColumn):
 
     return grid
 
-def printGrid(grid, showBoats=False, gridName=None):
+def printGrid(grid, score, showBoats=False, gridName=None):
     """
     Affiche la grille de jeu passé en paramètre.
     """
@@ -137,7 +137,7 @@ def printGrid(grid, showBoats=False, gridName=None):
     if gridName != None:
         print("\nGrille : " + str(gridName))
     
-    print(f"Score : {calculScore(grid)}")
+    print(f"Score : {score}")
 
     toplabel = "  "
     for label in rowlabel[:len(grid[0])]:

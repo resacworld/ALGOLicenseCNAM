@@ -2,7 +2,7 @@ import json
 import os
 import datetime
 
-def calculScore(grid):
+def calculScore(grid, play_duration):
     score = 0
 
     for row in grid:
@@ -12,6 +12,8 @@ def calculScore(grid):
             elif cell == "m":
                 score -= 100
     
+    score -= 50 * int(play_duration)
+
     return score
 
 def saveBestScore(pseudo, score, fichier="scores.json"):

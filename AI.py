@@ -7,7 +7,7 @@ from game import sendMissileAt, saveTurnInFile
 
 poslist = []
 
-def SendIAMissile(grid):
+def SendIAMissile(grid, play_duration):
     """
     IA simple qui envoie un missile à une position aléatoire non encore touchée
     """
@@ -22,7 +22,7 @@ def SendIAMissile(grid):
 
     sendMissileAt(grid, (row, col))
     
-    saveTurnInFile(grid, "Ordinateur", chr(col + ord('A')) + str(row + 1), grid[row][col])
+    saveTurnInFile(grid, play_duration, "Ordinateur", chr(col + ord('A')) + str(row + 1), grid[row][col])
 
     """
     # Début non finit d'une IA plus intelligente qui cible les positions autour d'un coup réussi

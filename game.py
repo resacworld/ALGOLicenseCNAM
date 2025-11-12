@@ -43,7 +43,7 @@ def sendMissileAt(grid, position):
         grid[row][col] = 'm'
         return False
     
-def askSendMissile(grid):
+def askSendMissile(grid, play_duration):
     """
     Demande a l'utilisateur d'entrer une position pour envoyer un missile sur la grille.
     """
@@ -65,7 +65,7 @@ def askSendMissile(grid):
     else:
         print("Manqué !")
 
-    saveTurnInFile(grid, "Utilisateur", strPosition, grid[position[0]][position[1]])
+    saveTurnInFile(grid, play_duration, "Utilisateur", strPosition, grid[position[0]][position[1]])
 
 def isGameOver(grid):
     """
@@ -88,7 +88,7 @@ def reinitFile():
         file.write("Début de la partie\n")
         file.write("========================\n")
 
-def saveTurnInFile(grid, gridName, cellName, value):
+def saveTurnInFile(grid, play_duration, gridName, cellName, value):
     """
     Sauvegarde les gilles de jeux et les mouvments dans le fichier game.txt
     """
@@ -103,7 +103,7 @@ def saveTurnInFile(grid, gridName, cellName, value):
         elif value == "m":
             file.write(f"Cible en {cellName} manquée.\n")
         
-        file.write(f"Score : {calculScore(grid)}\n")
+        file.write(f"Score : {calculScore(grid, play_duration)}\n")
 
         for row in grid:
             text = ""
