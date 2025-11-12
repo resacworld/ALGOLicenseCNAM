@@ -20,6 +20,39 @@ def cellNameToIndex(grid, cellName):
 
     return (rowIndex, colIndex)
 
+def checkIfBoatSinked(grid, position):
+    """
+    Vérifie si le bateau touché en (x, y) est entièrement coulé.
+    Renvoie true si coulé, sinon faux
+    """
+    (x, y) = position
+
+    n = len(grid)
+    if grid[x][y] != 'h':
+        return False  # pas un tir réussi, donc pas concerné
+
+    directions = [(-1,0), (1,0), (0,-1), (0,1)]
+
+    pile = [(x, y)]
+    visites = set()
+    cases_bateau = []
+
+    while pile:
+        i, j = pile.pop()
+        if (i, j) in visites or not (0 <= i < n and 0 <= j < n):
+            continue
+        if grid[i][j] not in ('b', 'h'):
+            continue
+
+        visites.add((i, j))
+        cases_bateau.append((i, j))
+
+        for dx, dy in directions:
+            pile.append((i + dx, j + dy))
+
+    # Il est coulé si toutes les cases du bateau sont 'h', touchées
+    return all(grid[i][j] == 'h' for i, j in cases_bateau)
+
 def sendMissileAt(grid, position):
     """
     Envoie un missile à la position donnée sur la grille.
@@ -61,7 +94,10 @@ def askSendMissile(grid, play_duration):
     result = sendMissileAt(grid, position)
 
     if result:
-        print("Touché !")
+        if checkIfBoatSinked(grid, position):
+            print("Coulé")
+        else:
+            print("Touché !")
     else:
         print("Manqué !")
 

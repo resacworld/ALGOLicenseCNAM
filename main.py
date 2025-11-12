@@ -35,6 +35,7 @@ def main():
 
     # Boucle principale du jeu
     while not isGameOver(userGrid) and not isGameOver(iaGrid):
+        print("==============")
         # Affichage des grilles de jeu
         printGrid(userGrid, calculScore(userGrid, play_duration=playerTimeCounter), True, pseudo)
         printGrid(iaGrid, calculScore(iaGrid, play_duration=iaTimeCounter) ,gridName="Ordinateur")
