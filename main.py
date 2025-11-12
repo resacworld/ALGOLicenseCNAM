@@ -26,7 +26,7 @@ def main():
     bestScores = get3bestScores()
     print("Meilleurs scores :")
     for score in bestScores:
-        print(f"{score["pseudo"]} : {score["score"]} points")
+        print(f"{score["date"]} - {score["pseudo"]} : {score["score"]} points")
     
     # Affichage des grilles de jeu
     printGrid(userGrid, True, pseudo)

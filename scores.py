@@ -1,5 +1,6 @@
 import json
 import os
+import datetime
 
 def calculScore(grid):
     score = 0
@@ -21,8 +22,10 @@ def saveBestScore(pseudo, score, fichier="scores.json"):
             scores = json.load(f)
     else:
         scores = []
+
+    date_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M")
     
-    scores.insert(0, {"pseudo": pseudo, "score": score})
+    scores.insert(0, {"pseudo": pseudo, "score": score, "date": date_time})
 
     print(scores)
 
@@ -54,3 +57,14 @@ def getUserRank(pseudo, score, fichier="scores.json"):
         rank += 1
 
     return -1  # Pseudo et score non trouvés
+
+
+# if __name__ == "__main__":
+#     saveBestScore("victor", 1100)
+#     saveBestScore("ben", 2500)
+#     saveBestScore("hugo", 1200)
+#     saveBestScore("aurore", 400)
+#     saveBestScore("pascal", 900)
+
+#     print(get3bestScores())
+#     print(getUserRank("hugo", 1200))
