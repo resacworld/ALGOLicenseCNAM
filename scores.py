@@ -21,7 +21,7 @@ def saveBestScore(pseudo, score, fichier="scores.json"):
     else:
         scores = []
     
-    scores.insert(0, [pseudo, score])
+    scores.insert(0, {pseudo, score})
 
     with open(fichier, "w+") as f:
         json.dump(scores, f)
@@ -33,7 +33,7 @@ def get3bestScores(fichier="scores.json"):
     else:
         scores = []
 
-    return sorted(scores, key=lambda x: x[1], reverse=True)[:3]
+    return sorted(scores, key=lambda x: x["score"], reverse=True)[:3]
 
 def getUserRank(pseudo, score, fichier="scores.json"):
     if os.path.exists(fichier):
@@ -42,11 +42,11 @@ def getUserRank(pseudo, score, fichier="scores.json"):
     else:
         return -1  # Fichier inexistant, pas de classement possible
 
-    scores_sorted = sorted(scores, key=lambda x: x[1], reverse=True)
+    scores_sorted = sorted(scores, key=lambda x: x["score"], reverse=True)
 
     rank = 1
     for entry in scores_sorted:
-        if entry[0] == pseudo and entry[1] == score:
+        if entry["pseudo"] == pseudo and entry["score"] == score:
             return rank
         rank += 1
 
